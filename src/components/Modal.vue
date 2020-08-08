@@ -1,5 +1,6 @@
 <template>
   <transition name="fade">
+    <!-- Modal will open only if there is any joke -->
     <div v-if="joke" id="modal">
       <div ref="jokeContainer" @scroll="setHappiness" class="joke-container">
         <!-- Joke -->
@@ -7,9 +8,13 @@
 
         <!-- Footer  -->
         <span v-if="joke" class="footer">
-          <h1>Thank you!</h1>
-          <h2>I'm happy again!</h2>
-          <button @click="closeModal">Leave</button>
+          <h1>- Thank you!</h1>
+          <h2>- I'm happy again!</h2>
+
+          <!-- Will show only if the happiness reach 100% -->
+          <transition name="fade">
+            <button v-if="percent == 100" @click="closeModal">Leave</button>
+          </transition>
         </span>
       </div>
     </div>
@@ -33,7 +38,7 @@ export default class Modal extends Vue {
 
   @Watch("value")
   valueChange(value) {
-    this.joke = value;
+    this.joke = value; // Update joke value on value change
   }
 
   get happiness() {
@@ -41,11 +46,13 @@ export default class Modal extends Vue {
   }
 
   closeModal() {
+    // Clear the joke to close modal
     this.joke = "";
     this.$emit("input", this.joke);
   }
 
   scrollPercent(scroller) {
+    // Check percentage of scollable content
     const height = scroller.clientHeight;
     const scrollHeight = scroller.scrollHeight - height;
     const scrollTop = scroller.scrollTop;
@@ -58,6 +65,7 @@ export default class Modal extends Vue {
 
     const round = Math.floor(percent / 10) * 10;
     if (round > this.percent) {
+      // Will only increase happiness value
       this.percent = round;
       this.$store.dispatch("setHappiness", round);
     }
@@ -89,7 +97,6 @@ export default class Modal extends Vue {
   display: grid;
   place-items: center;
   padding: 10px;
-  // padding-top: calc(150px / 2);
 }
 
 .joke {
@@ -98,7 +105,6 @@ export default class Modal extends Vue {
   line-height: 2em;
   word-wrap: break-word;
   margin-top: calc(50px);
-  // min-height: calc(400px - 150px / 2);
 }
 
 .footer {

@@ -1,6 +1,8 @@
 <template>
+  <!-- Add a class when satete reading to change position -->
   <div ref="geek" id="geek" :class="readingJoke ? 'geek-modal' : ''">
     <span class="emoji">
+      <!-- Change the face on state change  -->
       <transition name="fade">
         <h1
           :style="`animation-duration: ${100000 / happiness}ms;`"
@@ -20,7 +22,7 @@ import { Watch } from "vue-property-decorator";
 
 @Component
 export default class Geek extends Vue {
-  emoji = ["", this.emotion];
+  emoji = ["", this.emotion]; // Stores the last and the current emotions
 
   get readingJoke() {
     return this.$store.state.readingJoke;
@@ -47,6 +49,7 @@ export default class Geek extends Vue {
 
   @Watch("emotion")
   emotionChange(after, before) {
+    // Change emotion on state happiness change
     this.emoji = [before, after];
   }
 }

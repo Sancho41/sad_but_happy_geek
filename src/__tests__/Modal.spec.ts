@@ -2,7 +2,7 @@ import { shallowMount } from "@vue/test-utils";
 import Modal from "@/components/Modal.vue";
 
 describe("Modal.vue", () => {
-  it("render joke from props.msg when passed", () => {
+  it("render joke passing v-model", () => {
     expect.assertions(1);
     const joke = "My funny joke";
     const wrapper = shallowMount(Modal, {
@@ -12,17 +12,25 @@ describe("Modal.vue", () => {
     expect(wrapper.text()).toMatch(joke);
   });
 
-  it("will clear the joke and close modal when button clicked", () => {
+  it("will clear the joke and close modal when button clicked after read entire joke", async () => {
     expect.assertions(2);
-    const joke = "My funny joke";
-    const wrapper = shallowMount(Modal, {
-      propsData: { value: joke },
-    });
+    try {
+      const joke = "My funny joke";
+      const wrapper = shallowMount(Modal, {
+        propsData: { value: joke },
+      });
 
-    const button = wrapper.find("button");
-    button.trigger("click");
+      // Read the entire joke
+      wrapper.vm.$data.percent = 100;
+      await wrapper.vm.$nextTick();
 
-    expect(wrapper.vm.$data.joke).not.toBe(joke);
-    expect(wrapper.vm.$data.joke).not.toBeTruthy();
+      const button = wrapper.find("button");
+      button.trigger("click");
+
+      expect(wrapper.vm.$data.joke).not.toBe(joke);
+      expect(wrapper.vm.$data.joke).not.toBeTruthy();
+    } catch (error) {
+      expect(error).toEqual(new Error());
+    }
   });
 });

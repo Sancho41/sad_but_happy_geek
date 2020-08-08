@@ -1,12 +1,12 @@
 import { mount, createLocalVue } from "@vue/test-utils";
-import App from "@/App.vue";
+import App from "../App.vue";
 
-import Home from "@/views/Home.vue";
-import HelpTheGeek from "@/views/HelpTheGeek.vue";
-import Happiness from "@/views/Happiness.vue";
+import Home from "../views/Home.vue";
+import HelpTheGeek from "../views/HelpTheGeek.vue";
+import Happiness from "../views/Happiness.vue";
 
 import VueRouter from "vue-router";
-import router from "@/router";
+import router from "../router";
 import store from "../store";
 
 const localVue = createLocalVue();
@@ -19,8 +19,9 @@ describe("App", () => {
       localVue,
       router,
       store,
-    });
+    }); // create wrapper
 
+    // The default route is '/'
     expect(wrapper.findComponent(Home).exists()).toBe(true);
   });
 
@@ -33,11 +34,12 @@ describe("App", () => {
         store,
       });
 
+      // The default route is '/', so is expected that Home component will be loaded
       const home = wrapper.findComponent(Home);
       const button = home.find("button");
       button.trigger("click");
 
-      await wrapper.vm.$nextTick();
+      await wrapper.vm.$nextTick(); // Wait for next tick
 
       expect(wrapper.findComponent(HelpTheGeek).exists()).toBe(true);
     } catch (error) {
@@ -53,10 +55,11 @@ describe("App", () => {
         router,
         store,
       });
+      // Already in HelpTheGeek route
+      const button = wrapper.find("button");
+      button.trigger("click");
 
-      router.push({ name: "HelpTheGeek" });
-
-      await wrapper.vm.$nextTick();
+      await wrapper.vm.$nextTick(); // Wait for next tick
 
       expect(wrapper.findComponent(Happiness).exists()).toBe(true);
     } catch (error) {

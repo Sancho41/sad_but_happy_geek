@@ -1,6 +1,8 @@
 <template>
   <div id="home">
     <h1 class="title">- Hello, friend.</h1>
+
+    <!-- Change route on clicked -->
     <button
       @click="$router.push({ name: 'HelpTheGeek' })"
       class="button-title"
@@ -14,10 +16,14 @@ import Component from "vue-class-component";
 @Component()
 export default class Home extends Vue {
   created() {
+    // Set the states when the component is created
     this.$store.dispatch("makeItNeutral");
     this.$store.dispatch("readingJoke", false);
   }
 
+  /**
+   * Return the amount of happines from state.
+   */
   get happiness() {
     return this.$store.state.happiness;
   }

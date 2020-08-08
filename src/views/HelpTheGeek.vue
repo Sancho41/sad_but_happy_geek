@@ -1,6 +1,8 @@
 <template>
   <div id="help-the-geek">
     <h1 class="title">- I'm so sad!</h1>
+
+    <!-- Change route on clicked -->
     <button
       class="button-title"
       @click="$router.push({ name: 'Happiness' })"
@@ -11,15 +13,11 @@
 <script>
 import Vue from "vue";
 import Component from "vue-class-component";
-import Modal from "../components/Modal";
 
-@Component({
-  components: {
-    Modal,
-  },
-})
+@Component
 export default class Happiness extends Vue {
   created() {
+    // Set the states when the component is created
     this.$store.dispatch("makeItSad");
     this.$store.dispatch("readingJoke", false);
   }

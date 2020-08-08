@@ -1,5 +1,6 @@
 <template>
   <div id="app" :style="`background-color: ${color}`">
+    <!-- The Geek components stay visible in all application -->
     <Geek />
     <router-view />
   </div>
@@ -9,28 +10,33 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Watch } from "vue-property-decorator";
-import Geek from "./components/Geek";
+import Geek from "./components/Geek.vue";
 
 @Component({
   components: {
-    Geek,
+    Geek, // Register Geek component
   },
 })
 export default class App extends Vue {
-  colors = ["#e77f67", "#e15f41", "#f7d794", "#63cdda", ", #2ecc71"];
+  colors = ["#ff4d4d", "#ffaf40", "#fffa65", "#7efff5", "#18dcff", "#32ff7e"];
   emotions = ["😩", "😞", "😑", "😏", "😁", "😂"];
   color = this.colors[2];
 
+  /**
+   * Return the amount of happines from state.
+   */
   get happiness() {
     return this.$store.state.happiness;
   }
 
-  // Escuta pela mudança do estado happiness e muda o título da página
-  // de acordo com a quantidade de 'felicidade'
+  /**
+   * Set title document and background color, fired when happiness
+   * state changes.
+   */
   @Watch("happiness")
   happinessChange(newHappiness) {
-    const index = Math.floor(newHappiness / 20);
-    document.title = `Geek - ${this.emotions[index]}`;
+    const index = Math.floor(newHappiness / 20); // Get index between 0 and 5
+    document.title = `Geek - ${this.emotions[index]}`; // Set document title
     this.color = this.colors[index];
   }
 }
