@@ -1,18 +1,37 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="home">
+    <h1 class="title">- Hello, friend.</h1>
+    <button @click="gotoHappiness" class="button-title">Oh, hello! How you doing?</button>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Vue from "vue";
+import Component from "vue-class-component";
+@Component()
+export default class Home extends Vue {
+  created() {
+    this.$store.dispatch("makeItNeutral");
+    this.$store.dispatch("switchModal", false);
+  }
 
-export default {
-  name: 'Home',
-  components: {
-    HelloWorld
+  gotoHappiness() {
+    this.$router.push({ name: "Happiness" });
+  }
+
+  get happiness() {
+    return this.$store.state.happiness;
   }
 }
 </script>
+
+<style lang="scss">
+#home {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+</style>
