@@ -1,23 +1,27 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 
+import Home from "@/views/Home.vue";
+import HelpTheGeek from "@/views/HelpTheGeek.vue";
+import Happiness from "@/views/Happiness.vue";
+
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Home",
-    component: () => import("../views/Home.vue"),
+    component: Home,
   },
   {
     path: "/help-the-geek",
     name: "HelpTheGeek",
-    component: () => import("../views/HelpTheGeek.vue"),
+    component: HelpTheGeek,
   },
   {
     path: "/happiness",
     name: "Happiness",
-    component: () => import("../views/Happiness.vue"),
+    component: Happiness,
   },
 ];
 
