@@ -5,25 +5,40 @@
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import Vue from "vue";
+import Component from "vue-class-component";
+import { Watch } from "vue-property-decorator";
+import Geek from "./components/Geek";
 
-#nav {
-  padding: 30px;
+@Component({
+  components: {
+    Geek,
+  },
+})
+export default class App extends Vue {
+  colors = ["#e77f67", "#e15f41", "#f7d794", "#63cdda", ", #2ecc71"];
+  emotions = ["😩", "😞", "😑", "😏", "😁", "😂"];
+  color = this.colors[2];
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  get happiness() {
+    return this.$store.state.happiness;
   }
+
+  // Escuta pela mudança do estado happiness e muda o título da página
+  // de acordo com a quantidade de 'felicidade'
+  @Watch("happiness")
+  happinessChange(newHappiness) {
+    const index = Math.floor(newHappiness / 20);
+    document.title = `Geek - ${this.emotions[index]}`;
+    this.color = this.colors[index];
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+#app {
+  min-height: 100vh;
+  transition: background-color 300ms ease-in-out;
 }
 </style>
