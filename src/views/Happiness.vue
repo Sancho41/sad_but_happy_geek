@@ -57,7 +57,7 @@ export default class Happiness extends Vue {
 
   @Watch("joke")
   onJokeChange(value) {
-    this.$store.dispatch("switchModal", Boolean(value));
+    this.$store.dispatch("readingJoke", Boolean(value));
     if (!this.modalStatus && this.happiness == 100) this.leave();
   }
 }

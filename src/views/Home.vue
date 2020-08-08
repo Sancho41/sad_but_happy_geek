@@ -15,7 +15,7 @@ import Component from "vue-class-component";
 export default class Home extends Vue {
   created() {
     this.$store.dispatch("makeItNeutral");
-    this.$store.dispatch("switchModal", false);
+    this.$store.dispatch("readingJoke", false);
   }
 
   get happiness() {

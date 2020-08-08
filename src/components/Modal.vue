@@ -1,10 +1,12 @@
 <template>
   <transition name="fade">
-    <div id="modal" v-if="value">
+    <div v-if="joke" id="modal">
       <div ref="jokeContainer" @scroll="setHappiness" class="joke-container">
-        <p v-if="value" class="joke">{{value}}</p>
-        <p v-else class="loading">Loading...</p>
-        <span v-if="value" class="footer">
+        <!-- Joke -->
+        <p class="joke">{{joke}}</p>
+
+        <!-- Footer  -->
+        <span v-if="joke" class="footer">
           <h1>Thank you!</h1>
           <h2>I'm happy again!</h2>
           <button @click="closeModal">Leave</button>
@@ -17,6 +19,7 @@
 <script>
 import Vue from "vue";
 import Component from "vue-class-component";
+import { Watch } from "vue-property-decorator";
 
 @Component({
   props: {
@@ -25,15 +28,21 @@ import Component from "vue-class-component";
 })
 export default class Modal extends Vue {
   name = "Modal";
-  isOpen = false;
   percent = 0;
+  joke = this.value;
+
+  @Watch("value")
+  valueChange(value) {
+    this.joke = value;
+  }
 
   get happiness() {
     return this.$store.state.happiness;
   }
 
   closeModal() {
-    this.$emit("input", "");
+    this.joke = "";
+    this.$emit("input", this.joke);
   }
 
   scrollPercent(scroller) {

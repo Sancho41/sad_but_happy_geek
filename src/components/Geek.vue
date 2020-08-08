@@ -1,5 +1,5 @@
 <template>
-  <div ref="geek" id="geek" :class="openModal ? 'geek-modal' : ''">
+  <div ref="geek" id="geek" :class="readingJoke ? 'geek-modal' : ''">
     <span class="emoji">
       <transition name="fade">
         <h1
@@ -22,8 +22,8 @@ import { Watch } from "vue-property-decorator";
 export default class Geek extends Vue {
   emoji = ["", this.emotion];
 
-  get openModal() {
-    return this.$store.state.openModal;
+  get readingJoke() {
+    return this.$store.state.readingJoke;
   }
 
   get happiness() {

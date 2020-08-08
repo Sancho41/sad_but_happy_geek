@@ -21,7 +21,7 @@ import Modal from "../components/Modal";
 export default class Happiness extends Vue {
   created() {
     this.$store.dispatch("makeItSad");
-    this.$store.dispatch("switchModal", false);
+    this.$store.dispatch("readingJoke", false);
   }
 }
 </script>

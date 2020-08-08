@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     happiness: 50,
-    openModal: false,
+    readingJoke: false,
   },
 
   mutations: {
@@ -19,8 +19,8 @@ export default new Vuex.Store({
     makeItNeutral(state) {
       state.happiness = 50;
     },
-    switchModal(state, open) {
-      state.openModal = open;
+    readingJoke(state, value) {
+      state.readingJoke = value;
     },
   },
 
@@ -34,8 +34,8 @@ export default new Vuex.Store({
     makeItNeutral(context) {
       context.commit("makeItNeutral");
     },
-    switchModal(context, open) {
-      context.commit("switchModal", open);
+    readingJoke(context, value) {
+      context.commit("readingJoke", value);
     },
   },
 });
