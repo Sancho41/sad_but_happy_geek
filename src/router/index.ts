@@ -10,6 +10,11 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/Home.vue"),
   },
   {
+    path: "/help-the-geek",
+    name: "HelpTheGeek",
+    component: () => import("../views/HelpTheGeek.vue"),
+  },
+  {
     path: "/happiness",
     name: "Happiness",
     component: () => import("../views/Happiness.vue"),
