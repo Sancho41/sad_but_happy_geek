@@ -1,10 +1,10 @@
 <template>
   <transition name="fade">
-    <div id="modal" v-if="isOpen">
+    <div id="modal" v-if="value">
       <div ref="jokeContainer" @scroll="setHappiness" class="joke-container">
-        <p v-if="joke" class="joke">{{joke}}</p>
+        <p v-if="value" class="joke">{{value}}</p>
         <p v-else class="loading">Loading...</p>
-        <span v-if="joke" class="footer">
+        <span v-if="value" class="footer">
           <h1>Thank you!</h1>
           <h2>I'm happy again!</h2>
           <button @click="closeModal">Leave</button>
@@ -18,34 +18,22 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 
-@Component
+@Component({
+  props: {
+    value: String,
+  },
+})
 export default class Modal extends Vue {
-  constructor() {
-    super();
-    this.name = "Modal";
-    this.isOpen = false;
-    this.joke = "";
-    this.percent = 0;
-  }
+  name = "Modal";
+  isOpen = false;
+  percent = 0;
+
   get happiness() {
     return this.$store.state.happiness;
   }
 
   closeModal() {
-    this.$store.dispatch("switchModal", false);
-    this.$router.push({ name: "Home" });
-  }
-
-  async openModal() {
-    this.isOpen = true;
-    this.$store.dispatch("switchModal", true);
-
-    const response = await fetch(
-      "https://geek-jokes.sameerkumar.website/api?format=json"
-    );
-    const data = await response.json();
-    this.joke = data.joke;
-    // this.joke = "No statement can catch the ChuckNorrisException.";
+    this.$emit("input", "");
   }
 
   scrollPercent(scroller) {
@@ -100,7 +88,7 @@ export default class Modal extends Vue {
   text-align: center;
   line-height: 2em;
   word-wrap: break-word;
-  margin-top: calc(150px / 2);
+  margin-top: calc(50px);
   // min-height: calc(400px - 150px / 2);
 }
 
@@ -117,11 +105,18 @@ button {
 }
 
 .fade-enter-active,
-.fade-leave-active {
-  transition: opacity 1s;
+.joke-container,
+.fade-leave-active,
+.joke-container {
+  transition: all 1s;
 }
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+.fade-enter .joke-container,
+.fade-leave-to .joke-container {
+  transform: translateY(100%);
 }
 </style>

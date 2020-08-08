@@ -1,7 +1,10 @@
 <template>
   <div id="home">
     <h1 class="title">- Hello, friend.</h1>
-    <button @click="gotoHappiness" class="button-title">Oh, hello! How you doing?</button>
+    <button
+      @click="$router.push({ name: 'HelpTheGeek' })"
+      class="button-title"
+    >Oh, hello! How you doing?</button>
   </div>
 </template>
 
@@ -13,10 +16,6 @@ export default class Home extends Vue {
   created() {
     this.$store.dispatch("makeItNeutral");
     this.$store.dispatch("switchModal", false);
-  }
-
-  gotoHappiness() {
-    this.$router.push({ name: "Happiness" });
   }
 
   get happiness() {
