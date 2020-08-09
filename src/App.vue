@@ -18,8 +18,8 @@ import Geek from "./components/Geek.vue";
   },
 })
 export default class App extends Vue {
-  colors = ["#ff4d4d", "#ffaf40", "#fffa65", "#7efff5", "#18dcff", "#32ff7e"];
-  emotions = ["😩", "😞", "😑", "😏", "😁", "😂"];
+  colors = ["#ff4d4d", "#ffaf40", "#fffa65", "#7efff5", "#18dcff", "#32ff7e"]; // Color emotions
+  emotions = ["😩", "😞", "😑", "😏", "😁", "😂"]; // Emoji emotions
   color = this.colors[2];
 
   /**
@@ -37,7 +37,11 @@ export default class App extends Vue {
   happinessChange(newHappiness) {
     const index = Math.floor(newHappiness / 20); // Get index between 0 and 5
     document.title = `Geek - ${this.emotions[index]}`; // Set document title
-    this.color = this.colors[index];
+
+    const color = this.colors[index];
+    const metaColor = document.querySelector('[name="theme-color"]');
+    metaColor.setAttribute("content", color);
+    this.color = color;
   }
 }
 </script>
