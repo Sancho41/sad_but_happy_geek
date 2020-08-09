@@ -23,6 +23,11 @@ const routes: Array<RouteConfig> = [
     name: "Happiness",
     component: Happiness,
   },
+  {
+    path: "*",
+    // name: "Home",
+    component: Home,
+  },
 ];
 
 const router = new VueRouter({

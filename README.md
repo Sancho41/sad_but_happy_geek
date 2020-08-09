@@ -1,5 +1,7 @@
 # Sad But Happy Geek
 
+## [Live Demo](https://gabrielsancho.dev/sad_but_happy_geek/)
+
 ## Tecnologias utilizadas
 - [x] Componentes **Vue.js**
   - [x] **Class components** e **Typescript**
