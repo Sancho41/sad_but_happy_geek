@@ -1,3 +1,5 @@
+// Emotions files order by happiness
+
 export default [
   {
     filename: "003-crying.svg",

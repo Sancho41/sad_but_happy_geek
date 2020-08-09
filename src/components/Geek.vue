@@ -2,7 +2,7 @@
   <!-- Add a class when satete reading to change position -->
   <div ref="geek" id="geek" :class="readingJoke ? 'geek-modal' : ''">
     <span ref="emoji" class="emoji">
-      <!-- Change the face on state change  -->
+      <!-- Change the emoji face on state change  -->
       <transition name="fade">
         <img
           :key="emotion.filename"
@@ -24,33 +24,34 @@ import EmotionsUrl from "../utils/emotions";
 @Component
 export default class Geek extends Vue {
   emotions = [];
-
   created() {
+    // Add emotions from utils/emotions to emotions props
     for (const emotion of EmotionsUrl) {
       this.emotions.push(emotion);
     }
   }
 
+  /**
+   * Return the readingJoke status from state.
+   */
   get readingJoke() {
     return this.$store.state.readingJoke;
   }
 
+  /**
+   * Return the amount of happines from state.
+   */
   get happiness() {
     return this.$store.state.happiness;
   }
 
+  /**
+   * Get current emotion file based on happiness amount
+   */
   get emotion() {
     const happiness = this.happiness;
     const index = Math.floor(happiness / 20);
     return this.emotions[index];
-  }
-
-  increase() {
-    this.$store.dispatch("increaseHappiness");
-  }
-
-  reset() {
-    this.$store.dispatch("makeItSad");
   }
 }
 </script>
@@ -63,6 +64,7 @@ export default class Geek extends Vue {
   left: 50%;
   transition: all 400ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
   z-index: 999;
+  pointer-events: none;
 }
 
 #geek.geek-modal {

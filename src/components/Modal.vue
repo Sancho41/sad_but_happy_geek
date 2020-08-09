@@ -3,7 +3,7 @@
     <!-- Modal will open only if there is any joke -->
     <div v-if="joke" id="modal">
       <div ref="jokeContainer" @scroll="setHappiness" class="joke-container">
-        <!-- Joke -->
+        <!-- Joke text -->
         <p class="joke">{{joke}}</p>
 
         <!-- Footer  -->
@@ -43,6 +43,9 @@ export default class Modal extends Vue {
     this.joke = value; // Update joke value on value change
   }
 
+  /**
+   * Return the amount of happines from state.
+   */
   get happiness() {
     return this.$store.state.happiness;
   }

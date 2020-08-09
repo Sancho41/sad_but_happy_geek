@@ -6,6 +6,7 @@
       <h2>- I could't find any joke...</h2>
     </span>
     <button v-if="error" class="button-title" @click="$router.push({ name: 'Home' })">Try again!</button>
+
     <Modal v-model="joke" ref="modal" v-on:another-joke="anotherJoke()" v-on:leave="leave()" />
   </div>
 </template>
@@ -31,14 +32,7 @@ export default class Happiness extends Vue {
   }
 
   /**
-   * Get modal status from state
-   */
-  get modalStatus() {
-    return this.$store.state.openModal;
-  }
-
-  /**
-   * Get ammount of happiness from state
+   * Return the amount of happines from state.
    */
   get happiness() {
     return this.$store.state.happiness;
