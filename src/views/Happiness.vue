@@ -66,7 +66,6 @@ export default class Happiness extends Vue {
    * Go to home page after 2 seconds
    */
   leave() {
-    console.log("leaving");
     this.joke = "";
     setTimeout(() => {
       this.$router.push({ name: "Home" });
