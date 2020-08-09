@@ -1,12 +1,9 @@
 <template>
-  <div id="help-the-geek">
+  <div @click="$router.push({ name: 'Happiness' })" id="help-the-geek">
     <h1 class="title">- I'm so sad!</h1>
 
     <!-- Change route on clicked -->
-    <button
-      class="button-title"
-      @click="$router.push({ name: 'Happiness' })"
-    >Tell a joke to the Geek!</button>
+    <button class="button-title">- Don't be sad! I will tell you a joke!</button>
   </div>
 </template>
 
@@ -32,5 +29,6 @@ export default class Happiness extends Vue {
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
+  cursor: pointer;
 }
 </style>

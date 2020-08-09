@@ -1,12 +1,12 @@
 <template>
-  <div id="home">
-    <h1 class="title">- Hello, friend.</h1>
+  <div id="home" @click="$router.push({ name: 'HelpTheGeek' })">
+    <div class="title">
+      <h1>- Hello, friend.</h1>
+      <h2>- I'm Geek.</h2>
+    </div>
 
     <!-- Change route on clicked -->
-    <button
-      @click="$router.push({ name: 'HelpTheGeek' })"
-      class="button-title"
-    >Oh, hello! How you doing?</button>
+    <button class="button-title">- Oh, hello! How you doing?</button>
   </div>
 </template>
 
@@ -38,5 +38,6 @@ export default class Home extends Vue {
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
+  cursor: pointer;
 }
 </style>
