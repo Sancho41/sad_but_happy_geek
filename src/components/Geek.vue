@@ -1,15 +1,15 @@
 <template>
   <!-- Add a class when satete reading to change position -->
   <div ref="geek" id="geek" :class="readingJoke ? 'geek-modal' : ''">
-    <span class="emoji">
+    <span ref="emoji" class="emoji">
       <!-- Change the face on state change  -->
       <transition name="fade">
-        <h1
-          :style="`animation-duration: ${100000 / happiness}ms;`"
+        <img
           :key="emotion"
-          class="emoji-enter"
-          v-html="emotion"
-        ></h1>
+          :src="require(`@/assets/svg/${emotion}`)"
+          :filename="emotion"
+          class="emoji-enter emoji-image"
+        />
       </transition>
     </span>
   </div>
@@ -18,11 +18,17 @@
 <script>
 import Vue from "vue";
 import Component from "vue-class-component";
-import { Watch } from "vue-property-decorator";
+import EmotionsUrl from "../utils/emotions";
 
 @Component
 export default class Geek extends Vue {
-  emoji = ["", this.emotion]; // Stores the last and the current emotions
+  emotions = [];
+
+  created() {
+    for (const emotion of EmotionsUrl) {
+      this.emotions.push(emotion);
+    }
+  }
 
   get readingJoke() {
     return this.$store.state.readingJoke;
@@ -34,9 +40,8 @@ export default class Geek extends Vue {
 
   get emotion() {
     const happiness = this.happiness;
-    const emotions = ["😩", "😞", "😑", "😏", "😁", "😂"];
     const index = Math.floor(happiness / 20);
-    return emotions[index];
+    return this.emotions[index];
   }
 
   increase() {
@@ -45,12 +50,6 @@ export default class Geek extends Vue {
 
   reset() {
     this.$store.dispatch("makeItSad");
-  }
-
-  @Watch("emotion")
-  emotionChange(after, before) {
-    // Change emotion on state happiness change
-    this.emoji = [before, after];
   }
 }
 </script>
@@ -79,10 +78,18 @@ export default class Geek extends Vue {
   }
 }
 
-#geek h1 {
+#geek img {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+}
+
+#geek .emoji {
   position: absolute;
   transform: translate(-50%, -50%);
-  animation: pulseEmoji 3s ease infinite;
+  animation: pulseEmoji 2s ease-in-out infinite;
+  width: 150px;
+  height: 150px;
 }
 
 .fade-enter-active,
@@ -91,6 +98,6 @@ export default class Geek extends Vue {
 }
 .fade-enter,
 .fade-leave-to {
-  opacity: 0;
+  opacity: 0.6;
 }
 </style>
