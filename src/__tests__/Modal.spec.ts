@@ -1,5 +1,6 @@
 import { shallowMount } from "@vue/test-utils";
 import Modal from "@/components/Modal.vue";
+import store from "../store";
 
 describe("Modal.vue", () => {
   it("render joke passing v-model", () => {
@@ -7,6 +8,7 @@ describe("Modal.vue", () => {
     const joke = "My funny joke";
     const wrapper = shallowMount(Modal, {
       propsData: { value: joke },
+      store,
     });
 
     expect(wrapper.text()).toMatch(joke);
@@ -18,6 +20,7 @@ describe("Modal.vue", () => {
       const joke = "My funny joke";
       const wrapper = shallowMount(Modal, {
         propsData: { value: joke },
+        store,
       });
 
       // Read the entire joke

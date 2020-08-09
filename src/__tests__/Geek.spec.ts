@@ -2,6 +2,7 @@ import { mount, createLocalVue } from "@vue/test-utils";
 import Vuex from "vuex";
 import Store from "../store";
 import Geek from "../components/Geek.vue";
+import Emotions from "../utils/emotions";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -17,17 +18,24 @@ describe("Geek.vue", () => {
         localVue,
       });
 
-      expect(wrapper.find("h1").text()).toBe("😑"); // Firste state
+      await wrapper.vm.$nextTick();
+      expect(wrapper.find(".emoji-image").attributes("filename")).toBe(
+        Emotions[2]
+      ); // Firste state
 
       store.dispatch("makeItSad");
       await wrapper.vm.$nextTick();
 
-      expect(wrapper.find("h1").text()).toBe("😩"); // sad state (Happiness = 0)
+      expect(wrapper.find(".emoji-image").attributes("filename")).toBe(
+        Emotions[0]
+      ); // sad state (Happiness = 0)
 
       store.dispatch("setHappiness", 100);
       await wrapper.vm.$nextTick();
 
-      expect(wrapper.find("h1").text()).toBe("😂"); // Happy state (Happiness = 100)
+      expect(wrapper.find(".emoji-image").attributes("filename")).toBe(
+        Emotions[5]
+      ); // Happy state (Happiness = 100)
     } catch (error) {
       expect(error).toEqual(new Error());
     }
