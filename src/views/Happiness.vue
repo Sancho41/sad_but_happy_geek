@@ -6,7 +6,7 @@
       <h2>- I could't find any joke...</h2>
     </span>
     <button v-if="error" class="button-title" @click="$router.push({ name: 'Home' })">Try again!</button>
-    <Modal v-model="joke" ref="modal" />
+    <Modal v-model="joke" ref="modal" v-on:another-joke="anotherJoke()" v-on:leave="leave()" />
   </div>
 </template>
 
@@ -25,18 +25,9 @@ export default class Happiness extends Vue {
   joke = "";
   error = false;
 
-  async created() {
+  created() {
     this.$store.dispatch("makeItSad");
-
-    try {
-      const apiUrl = "https://geek-jokes.sameerkumar.website/api?format=json";
-      const response = await fetch(apiUrl); // Get the joke from api
-      const data = await response.json();
-
-      this.joke = data.joke; // Set the joke from api response
-    } catch (error) {
-      this.error = true; // Set error flag to true if there is any error
-    }
+    this.loadJoke();
   }
 
   /**
@@ -54,10 +45,36 @@ export default class Happiness extends Vue {
   }
 
   /**
+   * Load joke from API
+   */
+  async loadJoke() {
+    try {
+      const apiUrl = "https://geek-jokes.sameerkumar.website/api?format=json";
+      const response = await fetch(apiUrl); // Get the joke from api
+      const data = await response.json();
+
+      this.joke = data.joke; // Set the joke from api response
+    } catch (error) {
+      this.error = true; // Set error flag to true if there is any error
+    }
+  }
+
+  /**
+   * Load another joke from API
+   */
+  anotherJoke() {
+    this.joke = "";
+    this.loadJoke();
+    this.$store.dispatch("makeItSad");
+  }
+
+  /**
    * Go to home page after 2 seconds
    */
-  async leave() {
-    return setTimeout(() => {
+  leave() {
+    console.log("leaving");
+    this.joke = "";
+    setTimeout(() => {
       this.$router.push({ name: "Home" });
     }, 2000);
   }
@@ -68,7 +85,6 @@ export default class Happiness extends Vue {
   @Watch("joke")
   onJokeChange(value) {
     this.$store.dispatch("readingJoke", Boolean(value));
-    if (!this.modalStatus && this.happiness == 100) this.leave();
   }
 }
 </script>
