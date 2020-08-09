@@ -8,12 +8,15 @@
 
         <!-- Footer  -->
         <span v-if="joke" class="footer">
-          <h1>- Thank you!</h1>
-          <h2>- I'm happy again!</h2>
+          <h1>- Thank you!🎉</h1>
+          <h2>- I'm happy again!🎆</h2>
 
           <!-- Will show only if the happiness reach 100% -->
           <transition name="fade">
-            <button v-if="percent == 100" @click="closeModal">Leave</button>
+            <div class="buttons" :style="`opacity:${happiness == 100 ? 1 : 0};`">
+              <button @click="closeModal">Leave</button>
+              <button @click="$emit('another-joke')">Read another joke</button>
+            </div>
           </transition>
         </span>
       </div>
@@ -33,7 +36,6 @@ import { Watch } from "vue-property-decorator";
 })
 export default class Modal extends Vue {
   name = "Modal";
-  percent = 0;
   joke = this.value;
 
   @Watch("value")
@@ -45,14 +47,18 @@ export default class Modal extends Vue {
     return this.$store.state.happiness;
   }
 
+  /**
+   * Clear the joke to close modal and emit leave event to parent
+   */
   closeModal() {
-    // Clear the joke to close modal
     this.joke = "";
-    this.$emit("input", this.joke);
+    this.$emit("leave");
   }
 
+  /**
+   * Check the percentage of scrollable content
+   */
   scrollPercent(scroller) {
-    // Check percentage of scollable content
     const height = scroller.clientHeight;
     const scrollHeight = scroller.scrollHeight - height;
     const scrollTop = scroller.scrollTop;
@@ -60,13 +66,15 @@ export default class Modal extends Vue {
     return percent;
   }
 
+  /**
+   * Update happiness state according to scroll percent
+   */
   setHappiness(element) {
     const percent = this.scrollPercent(element.target);
 
     const round = Math.floor(percent / 10) * 10;
-    if (round > this.percent) {
+    if (round > this.happiness) {
       // Will only increase happiness value
-      this.percent = round;
       this.$store.dispatch("setHappiness", round);
     }
   }
@@ -87,7 +95,7 @@ export default class Modal extends Vue {
 
 .joke-container {
   background-color: white;
-  border: 10px solid black;
+  border: 5px solid black;
   border-radius: 10px;
   width: 400px;
   height: 400px;
@@ -112,11 +120,16 @@ export default class Modal extends Vue {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
 }
 
 button {
   display: block;
-  margin: 10px auto;
+  margin: 20px auto;
+}
+
+.buttons {
+  transition: opacity 300ms ease-in-out;
 }
 
 .fade-enter-active,
