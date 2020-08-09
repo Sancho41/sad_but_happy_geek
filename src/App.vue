@@ -40,7 +40,7 @@ export default class App extends Vue {
 
     const color = this.colors[index];
     const metaColor = document.querySelector('[name="theme-color"]');
-    metaColor.setAttribute("content", color);
+    if (metaColor) metaColor.setAttribute("content", color);
     this.color = color;
   }
 }
