@@ -25,13 +25,13 @@
 
 # Capturas de tela
 
-| Humor neutro                    | Triste                                 |
-| ------------------------------- | -------------------------------------- |
-| ![Home](./docs/images/Home.jpg) | ![Home](./docs/images/HelpTheGeek.jpg) |
+| Humor neutro                         | Triste                                      |
+| ------------------------------------ | ------------------------------------------- |
+| ![Home](./docs/screenshots/Home.jpg) | ![Home](./docs/screenshots/HelpTheGeek.jpg) |
 
-| Começo da piada, triste                 | Metade da piada, neutro                 | Final da piada, feliz                   |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| ![Home](./docs/images/ReadingJoke1.jpg) | ![Home](./docs/images/ReadingJoke2.jpg) | ![Home](./docs/images/ReadingJoke3.jpg) |
+| Começo da piada, triste                      | Metade da piada, neutro                      | Final da piada, feliz                        |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| ![Home](./docs/screenshots/ReadingJoke1.jpg) | ![Home](./docs/screenshots/ReadingJoke2.jpg) | ![Home](./docs/screenshots/ReadingJoke3.jpg) |
 
 # Configuração de projeto
 
