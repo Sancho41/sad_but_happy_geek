@@ -14,7 +14,7 @@
   - **HelpTheGeek**: Onde a SPA vai para o estado neutro.
   - **Happiness**: Onde a felicidade da SPA vai aumentado de acordo com a leitura da piada.
 
-##### Contém dois componentes auxiliares:
+#### Contém dois componentes auxiliares:
   - **Geek**: Que está presente em todas as páginas sem ser recarregado, reagindo aos estados de felicidade.
   - **Modal**: Aparece assim que entra na rota **/happiness** e só pode ser fechado quando for feito a leitura completa da piada (movimento de scroll da página) e a SPA esteja feliz!
 
