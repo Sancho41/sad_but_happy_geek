@@ -15,6 +15,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Watch } from "vue-property-decorator";
+import JokeService from "../services/JokeService";
 import Modal from "../components/Modal";
 
 @Component({
@@ -43,11 +44,7 @@ export default class Happiness extends Vue {
    */
   async loadJoke() {
     try {
-      const apiUrl = "https://geek-jokes.sameerkumar.website/api?format=json";
-      const response = await fetch(apiUrl); // Get the joke from api
-      const data = await response.json();
-
-      this.joke = data.joke; // Set the joke from api response
+      this.joke = await JokeService.getJoke(); // Set the joke from api response
     } catch (error) {
       this.error = true; // Set error flag to true if there is any error
     }
