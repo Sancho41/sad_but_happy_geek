@@ -20,21 +20,21 @@ describe("Geek.vue", () => {
 
       await wrapper.vm.$nextTick();
       expect(wrapper.find(".emoji-image").attributes("filename")).toBe(
-        Emotions[2]
+        Emotions[2].filename
       ); // Firste state
 
       store.dispatch("makeItSad");
       await wrapper.vm.$nextTick();
 
       expect(wrapper.find(".emoji-image").attributes("filename")).toBe(
-        Emotions[0]
+        Emotions[0].filename
       ); // sad state (Happiness = 0)
 
       store.dispatch("setHappiness", 100);
       await wrapper.vm.$nextTick();
 
       expect(wrapper.find(".emoji-image").attributes("filename")).toBe(
-        Emotions[5]
+        Emotions[5].filename
       ); // Happy state (Happiness = 100)
     } catch (error) {
       expect(error).toEqual(new Error());

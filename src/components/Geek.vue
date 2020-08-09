@@ -5,9 +5,10 @@
       <!-- Change the face on state change  -->
       <transition name="fade">
         <img
-          :key="emotion"
-          :src="require(`@/assets/svg/${emotion}`)"
-          :filename="emotion"
+          :key="emotion.filename"
+          :src="require(`@/assets/svg/${emotion.filename}`)"
+          :filename="emotion.filename"
+          :alt="emotion.alt"
           class="emoji-enter emoji-image"
         />
       </transition>
